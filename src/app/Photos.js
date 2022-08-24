@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { render } from "react-dom";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { images } from "./images";
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+//import { images } from "../images";
+import images from './data.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +24,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+/**
+ * react-photo-gallery 
+ * http://neptunian.github.io/react-photo-gallery/api.html
+ * @returns 
+ */
 function Photos() {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -35,11 +39,12 @@ function Photos() {
   }, []);
 
   const closeLightbox = () => {
-    setCurrentImage(0);
     setViewerIsOpen(false);
   };
-  const classes = useStyles();
 
+  const classes = useStyles();
+  
+  
   return (
     <div>
       <div className={classes.root}>
@@ -54,9 +59,10 @@ function Photos() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-    </div>
+      </div>
 
-      <Gallery photos={images} onClick={openLightbox} />
+      <Gallery photos={images} onClick={openLightbox} direction={"column"} />
+     
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
@@ -64,8 +70,15 @@ function Photos() {
               currentIndex={currentImage}
               views={images.map(x => ({
                 ...x,
-                srcset: x.srcSet,
-                caption: x.title
+                caption: "x.title",
+                alt:"alt",
+
+                source: {
+                  download: x.src,
+                  fullscreen: x.src,
+                  regular: x.src,
+                  thumbnail: x.src
+                }
               }))}
             />
           </Modal>
@@ -75,5 +88,4 @@ function Photos() {
   );
 }
 
-//render(<Photos />, document.getElementById("app"));
 export default Photos;
