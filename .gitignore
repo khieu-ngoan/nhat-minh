@@ -12,6 +12,7 @@
 /build
 /public/Minh
 /docs/Minh
+
 # misc
 .DS_Store
 .env.local
