@@ -74,10 +74,10 @@ function Photos() {
                 alt:"alt",
 
                 source: {
-                  download: x.src,
-                  fullscreen: x.src,
+                  // download: x.src,
+                  // fullscreen: x.src,
                   regular: x.src,
-                  thumbnail: x.src
+                  thumbnail: x.thumbnail
                 }
               }))}
             />

@@ -1,11 +1,26 @@
-import os, argparse, json
+import os, argparse, json, uuid
 from datetime import datetime
 import cv2
+import PIL
+from PIL import Image
 
 #rootUrl = "https://quanict.github.io/NguyenKhieuNhatMinh/"
 rootUrl = "/Minh/"
 rootDir = os.path.dirname("/mnt/data/resource-git/NguyenKhieuNhatMinh/")
 publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/app"
+
+def thumbnail(file):
+    img_resize = 300
+    img = Image.open(file).convert("RGB")
+    basewidth = img_resize
+    wpercent = (img_resize / float(img.size[0]))
+    hsize = int((float(img.size[1]) * float(wpercent)))
+    img_thumb = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+    
+    cropped = img_thumb.crop( (0,0,img_resize,img_resize) )
+    thumbnail = f"{rootDir}/thumbnail/{uuid.uuid4()}.jpg"
+    cropped.save(thumbnail,"jpeg")
+    return thumbnail
 
 def createData():
     imagesData=[]
@@ -24,8 +39,10 @@ def createData():
 
                         imgFile = {
                             "src": filePath.replace(rootDir, rootUrl),
+                            "thumbnail": thumbnail(filePath),
                             "width": 4,
-                            "height": 3
+                            "height": 3,
+                            
                         }
                         if( w < h):
                             imgFile["width"] = 3
