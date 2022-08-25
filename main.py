@@ -26,7 +26,7 @@ imageDB = db.reference("/images")
 #rootUrl = "https://quanict.github.io/NguyenKhieuNhatMinh/"
 rootUrl = "/Minh/"
 rootUrl = ""
-rootDir = os.path.dirname("/mnt/data/resource-git/NguyenKhieuNhatMinh/")
+rootDir = os.path.dirname(os.path.abspath(__file__))+"/public/Minh"
 publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/app"
 
 def thumbnail(file, firebaseId, replate=False):
@@ -94,7 +94,9 @@ def createJson(replate=False):
         # image["date"] = datetime.strptime(image["date"], '%Y/%m/%d')
         imagesData.append(image)
 
+    imagesData = sorted( imagesData, key=lambda x: x["src"], reverse = True)
     imagesData = sorted( imagesData, key=lambda x: x["date"], reverse = True )
+    
     # for image in imagesData:
     #     print(image["date"])
     

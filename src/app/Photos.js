@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 //import { images } from "../images";
 import images from './data.json';
+import { IMAGE_URL } from "./Gallery/utils/env";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,7 +63,7 @@ function Photos() {
       </AppBar>
       </div>
 
-      <Gallery photos={images} onClick={openLightbox} direction={"column"} />
+      <Gallery photos={images} onClick={openLightbox} direction={"row"} />
      
       <ModalGateway>
         {viewerIsOpen ? (
@@ -76,8 +77,8 @@ function Photos() {
                 source: {
                   // download: x.src,
                   // fullscreen: x.src,
-                  regular: x.src,
-                  thumbnail: x.thumbnail
+                  regular: `${IMAGE_URL}/${x.src}`,
+                  thumbnail: `${IMAGE_URL}/${x.thumbnail}`
                 }
               }))}
             />

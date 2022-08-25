@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IMAGE_URL } from './utils/env';
 
 const imgWithClick = { cursor: 'pointer' };
 
@@ -15,6 +16,9 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
     onClick(event, { photo, index });
   };
 
+  
+  photo.src = `${IMAGE_URL}/${photo.src}`;
+  
   return (
     <img
       key={key}
