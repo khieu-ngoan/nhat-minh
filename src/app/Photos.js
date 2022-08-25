@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import Gallery from "react-photo-gallery";
+// import Gallery from "react-photo-gallery";
+import Gallery from "./Gallery/Gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -72,7 +73,6 @@ function Photos() {
                 ...x,
                 caption: "x.title",
                 alt:"alt",
-
                 source: {
                   // download: x.src,
                   // fullscreen: x.src,
