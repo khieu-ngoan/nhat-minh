@@ -6,7 +6,10 @@ from datetime import datetime
 import cv2
 import PIL
 from PIL import Image
+# import wand.image
+# from wand.image import Image
 import pyheif
+import pillow_heif
 import webp as WEBP_CONVERT
 import firebase_admin
 from firebase_admin import credentials
@@ -118,8 +121,11 @@ def convertIphone():
                 
                 # with open(os.path.join(root, file), 'rb') as f:
                 #     byteImg = f.read()
-                # i = pyheif.read(os.path.join(toConvertDir, file))
-                heif_file = pyheif.read(open(os.path.join(toConvertDir, file), "rb").read())
+                heifPath = os.path.join(toConvertDir, file)
+                heifFile = pillow_heif.read_heif(heifPath)
+                print( heifPath )
+                # heif_file = pyheif.read(heifPath)
+                # heif_file = pyheif.read(open(os.path.join(toConvertDir, file), "rb").read())
                 # pi = Image.frombytes( mode=i.mode, size=i.size, data=i.data)
                 # pi.save(f"{toConvertDir}/{filename}.jpg")
                 print(filename, extension, f"{toConvertDir}/{filename}.jpg", os.path.join(toConvertDir, file))
