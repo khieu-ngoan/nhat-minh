@@ -1,2 +1,4 @@
 opencv-python
+webp
+pyheif
 firebase_admin

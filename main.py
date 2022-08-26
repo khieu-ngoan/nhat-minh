@@ -6,6 +6,8 @@ from datetime import datetime
 import cv2
 import PIL
 from PIL import Image
+import pyheif
+import webp as WEBP_CONVERT
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -27,6 +29,7 @@ imageDB = db.reference("/images")
 rootUrl = "/Minh/"
 rootUrl = ""
 rootDir = os.path.dirname(os.path.abspath(__file__))+"/public/Minh"
+toConvertDir = os.path.dirname(os.path.abspath(__file__))+"/public/convert"
 publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/app"
 dateLimit = datetime(2022, 1, 1)
 
@@ -83,7 +86,6 @@ def syncToFirebaseRealtime():
 
                         imagesData.append(imgFile)
    
-
 def getSrc(imageObject):
     return imageObject.get('src')
 
@@ -107,10 +109,30 @@ def createJson(replate=False):
     jsonFile = open(jsonFile, "a")
     jsonFile.write(json.dumps(imagesData))
 
+def convertIphone():
+    types = [".HEIC"]
+    for root, dirs, files in os.walk(toConvertDir):
+        for file in files:
+            filename, extension = os.path.splitext(file)
+            if extension in types:
+                
+                # with open(os.path.join(root, file), 'rb') as f:
+                #     byteImg = f.read()
+                # i = pyheif.read(os.path.join(toConvertDir, file))
+                heif_file = pyheif.read(open(os.path.join(toConvertDir, file), "rb").read())
+                # pi = Image.frombytes( mode=i.mode, size=i.size, data=i.data)
+                # pi.save(f"{toConvertDir}/{filename}.jpg")
+                print(filename, extension, f"{toConvertDir}/{filename}.jpg", os.path.join(toConvertDir, file))
+                exit()
+            # pi = Image.frombytes( mode=i.mode, size=i.size, data=i.data)
+            # basename, _ = os.path.splitext(title)
+            # pi.save(f"{toConvertDir}/{basename}.jpg")   
+
 def main():
     ap = argparse.ArgumentParser()
     # syncToFirebaseRealtime()
-    createJson(replate=False)
+    # createJson(replate=False)
+    convertIphone()
     
     
 
