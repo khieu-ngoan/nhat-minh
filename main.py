@@ -28,6 +28,7 @@ rootUrl = "/Minh/"
 rootUrl = ""
 rootDir = os.path.dirname(os.path.abspath(__file__))+"/public/Minh"
 publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/app"
+dateLimit = datetime(2022, 1, 1)
 
 def thumbnail(file, firebaseId, replate=False):
     
@@ -59,8 +60,8 @@ def syncToFirebaseRealtime():
                 dirBasename = os.path.basename(dir)
                 if len(dirBasename) == 6:
                     date = datetime.strptime(dirBasename, '%y%m%d')
-                    limit = datetime(2022, 7, 1)
-                    if date >= datetime(2022, 7, 1):
+                    
+                    if date >= dateLimit:
                         im = cv2.imread(filePath)
                         h, w, c = im.shape
                         imgFile = {
