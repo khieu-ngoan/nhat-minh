@@ -113,26 +113,8 @@ def createJson(replate=False):
     jsonFile.write(json.dumps(imagesData))
 
 def convertIphone():
-    types = [".HEIC"]
-    for root, dirs, files in os.walk(toConvertDir):
-        for file in files:
-            filename, extension = os.path.splitext(file)
-            if extension in types:
-                
-                # with open(os.path.join(root, file), 'rb') as f:
-                #     byteImg = f.read()
-                heifPath = os.path.join(toConvertDir, file)
-                heifFile = pillow_heif.read_heif(heifPath)
-                print( heifPath )
-                # heif_file = pyheif.read(heifPath)
-                # heif_file = pyheif.read(open(os.path.join(toConvertDir, file), "rb").read())
-                # pi = Image.frombytes( mode=i.mode, size=i.size, data=i.data)
-                # pi.save(f"{toConvertDir}/{filename}.jpg")
-                print(filename, extension, f"{toConvertDir}/{filename}.jpg", os.path.join(toConvertDir, file))
-                exit()
-            # pi = Image.frombytes( mode=i.mode, size=i.size, data=i.data)
-            # basename, _ = os.path.splitext(title)
-            # pi.save(f"{toConvertDir}/{basename}.jpg")   
+    # for file in *.HEIC; do convert $file ${file/%.HEIC/.jpg}; done
+    return True
 
 def main():
     ap = argparse.ArgumentParser()
