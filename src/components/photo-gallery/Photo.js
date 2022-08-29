@@ -18,15 +18,18 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
 
   
   photo.src = `${IMAGE_URL}/${photo.src}`;
-  
+  // let imgPreload = `${IMAGE_URL}/${photo.thumbnail}`;
+
   return (
-    <img
+    // <LazyLoad key={key} once={true} placeholder={<img src={imgPreload} alt="..." />} >
+     <img
       key={key}
       style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
       {...photo}
       onClick={onClick ? handleClick : null}
       alt={""}
     />
+  // </LazyLoad>
   );
 };
 

@@ -8,9 +8,7 @@ import PIL
 from PIL import Image
 # import wand.image
 # from wand.image import Image
-import pyheif
-import pillow_heif
-import webp as WEBP_CONVERT
+# import webp as WEBP_CONVERT
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -33,8 +31,8 @@ rootUrl = "/Minh/"
 rootUrl = ""
 rootDir = os.path.dirname(os.path.abspath(__file__))+"/public/Minh"
 toConvertDir = os.path.dirname(os.path.abspath(__file__))+"/public/convert"
-publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/app"
-dateLimit = datetime(2022, 1, 1)
+publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/components/Gallery/"
+dateLimit = datetime(2019, 1, 1)
 
 def thumbnail(file, firebaseId, replate=False):
     
@@ -119,8 +117,7 @@ def convertIphone():
 def main():
     ap = argparse.ArgumentParser()
     # syncToFirebaseRealtime()
-    # createJson(replate=False)
-    convertIphone()
+    createJson(replate=False)
     
     
 

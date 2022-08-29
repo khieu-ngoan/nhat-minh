@@ -3,9 +3,8 @@ import React from 'react';
 import { render } from "react-dom";
 
 import './index.css';
-//import App from './App';
 //import reportWebVitals from './reportWebVitals';
-import {Photos} from './app';
+import {App} from './app';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -13,14 +12,14 @@ import {Photos} from './app';
 //     <Photos />
 //   </React.Fragment>
 // );
-function App() {
+function AppRoot() {
   return (
     <React.Fragment>
-      <Photos />
+      <App />
     </React.Fragment>
   );
 }
-render(<App />, document.getElementById("root"));
+render(<AppRoot />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
