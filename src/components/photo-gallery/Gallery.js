@@ -34,7 +34,7 @@ const Gallery = React.memo(function Gallery({
   
 
   const fetchData = async () => {
-		setTimeout(async () => {
+		// setTimeout(async () => {
 			// const result = await fetch(`https://picsum.photos/v2/list?page=${page}`);
 			// const data = await result.json();
       console.log(`====== fetchData`, {page});
@@ -44,7 +44,7 @@ const Gallery = React.memo(function Gallery({
 			setListItems(() => {
 				return [...listItems, ...data];
 			});
-    }, 1000);
+    // }, 1000);
   }
 
   useLayoutEffect(() => {
@@ -167,7 +167,7 @@ const Gallery = React.memo(function Gallery({
           }
          
           return <Fragment key={index} >
-            <PhotoLoading photo={photo} />
+            {/* <PhotoLoading photo={photo} /> */}
             <Suspense fallback={<PhotoLoading photo={photo} />}>
   						{ showDate && <DateLabel date={dateLatest} /> }
               <LazyLoad  placeholder={<PhotoLoading />} offset={20} >
