@@ -1,17 +1,24 @@
 import React, { useState, useLayoutEffect, useRef, Fragment, useEffect, Suspense } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { setPhotos, getPhotos, getContainerWidth } from '../../redux/gallery/photoSlice'
 import PropTypes from 'prop-types';
 import ResizeObserver from 'resize-observer-polyfill';
 import { photoPropType } from './Photo';
-import { computeColumnLayout } from './layouts/columns';
-import { computeRowLayout } from './layouts/justified';
-import { findIdealNodeSearch } from './utils/findIdealNodeSearch';
+// import { computeColumnLayout } from './layouts/columns';
+// import { computeRowLayout } from './layouts/justified';
+// import { findIdealNodeSearch } from './utils/findIdealNodeSearch';
 import LazyLoad from 'react-lazyload'
 import moment from 'moment';
 import PhotoLoading from './PhotoLoading';
 import DateLabel from './DateLabel';
 import Photo from './Photo';
+import {GalleryBuilder} from './GalleryBuilder';
 // const Photo = React.lazy(() => import("./Photo"));
 
+const builder = new GalleryBuilder();
+/**
+ * https://javascript.plainenglish.io/react-infinite-scrolling-and-lazy-loading-171909f92b54
+ */
 const Gallery = React.memo(function Gallery({
   photos,
   onClick,
@@ -23,27 +30,39 @@ const Gallery = React.memo(function Gallery({
   renderImage
 }) {
   const [containerWidth, setContainerWidth] = useState(0);
+  
   const [listItems, setListItems] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [page, setPage] = useState(1);
-  const offset = 20;
+  
   const galleryEl = useRef(null);
   let renderComponent = renderImage || Photo;
   let dateLatest = moment();
-  let galleryStyle, thumbs = [];
-  
+  // let galleryStyle, thumbs = [];
+  const photosData = useSelector(getPhotos)
+  // const containerWidth = useSelector(getContainerWidth)
+  const dispatch = useDispatch();
+  builder.init({photos, direction, margin, limitNodeSearch, targetRowHeight, columns});
 
   const fetchData = async () => {
 		// setTimeout(async () => {
 			// const result = await fetch(`https://picsum.photos/v2/list?page=${page}`);
 			// const data = await result.json();
-      console.log(`====== fetchData`, {page});
-      console.trace();
-      const data = thumbs.slice(offset*(page-1), offset*page);
+      
+      //console.trace();
+      // const data = thumbs.slice(offset*(page-1), offset*page);
+      const data = builder.getPaginate(page);
+      if( data.length < 1){
+        return;
+      }
+      console.log(`====== fetchData`, {page, data, builder});
 			setPage(page + 1);
-			setListItems(() => {
-				return [...listItems, ...data];
-			});
+      
+      dispatch(setPhotos(data));
+
+			// setListItems(() => {
+			// 	return [...listItems, ...data];
+			// });
     // }, 1000);
   }
 
@@ -56,12 +75,16 @@ const Gallery = React.memo(function Gallery({
         // put in an animation frame to stop "benign errors" from
         // ResizObserver https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded
         animationFrameID = window.requestAnimationFrame(() => {
-          setContainerWidth(Math.floor(newWidth));
+          //setContainerWidth(Math.floor(newWidth));
+        
+          console.warn(`1. ==== builder.setContainerWidth`, {newWidth})
+          setContainerWidth( builder.setContainerWidth( newWidth ) );
+        //containerWidth = builder.getContainerWidth();
+          // dispatch(setContainerWidth(Math.floor(newWidth)));
         });
+        // dispatch(setData({direction, limitNodeSearch, targetRowHeight, columns, margin, photos}));
+        
       }
-
-      fetchData();
-		  window.addEventListener('scroll', handleScroll);
     });
 
     observer.observe(galleryEl.current);
@@ -70,7 +93,14 @@ const Gallery = React.memo(function Gallery({
       observer.disconnect();
       window.cancelAnimationFrame(animationFrameID);
     };
+
   });
+
+  useEffect(()=>{
+    fetchData();
+    
+    window.addEventListener('scroll', handleScroll);
+  }, [containerWidth])
 
   useEffect(() => {
     if (!isFetching) return;
@@ -85,8 +115,6 @@ const Gallery = React.memo(function Gallery({
       next: photos[index + 1] || null,
     });
   };
-
-  
 
   // useEffect(() => {
 	// 	fetchData();
@@ -108,56 +136,22 @@ const Gallery = React.memo(function Gallery({
     fetchData();
     setIsFetching(false);
   };
-
-
-  // no containerWidth until after first render with refs, skip calculations and render nothing
-  if (!containerWidth) return <div ref={galleryEl}>&nbsp;</div>;
-  // subtract 1 pixel because the browser may round up a pixel
-  const width = containerWidth - 1;
   
-
-  if (direction === 'row') {
-    // allow user to calculate limitNodeSearch from containerWidth
-    if (typeof limitNodeSearch === 'function') {
-      limitNodeSearch = limitNodeSearch(containerWidth);
-    }
-    if (typeof targetRowHeight === 'function') {
-      targetRowHeight = targetRowHeight(containerWidth);
-    }
-    // set how many neighboring nodes the graph will visit
-    if (limitNodeSearch === undefined) {
-      limitNodeSearch = 2;
-      if (containerWidth >= 450) {
-        limitNodeSearch = findIdealNodeSearch({ containerWidth, targetRowHeight });
-      }
-    }
-
-    galleryStyle = { display: 'flex', flexWrap: 'wrap', flexDirection: 'row' };
-    thumbs = computeRowLayout({ containerWidth: width, limitNodeSearch, targetRowHeight, margin, photos });
+  // no containerWidth until after first render with refs, skip calculations and render nothing
+  if (!containerWidth) {
+    console.warn(`===== container width`, {containerWidth})
+    return <div ref={galleryEl}>&nbsp;</div>;
   }
-  if (direction === 'column') {
-    // allow user to calculate columns from containerWidth
-    if (typeof columns === 'function') {
-      columns = columns(containerWidth);
-    }
-    // set default breakpoints if user doesn't specify columns prop
-    if (columns === undefined) {
-      columns = 1;
-      if (containerWidth >= 500) columns = 2;
-      if (containerWidth >= 900) columns = 3;
-      if (containerWidth >= 1500) columns = 4;
-    }
-    galleryStyle = { position: 'relative' };
-    thumbs = computeColumnLayout({ containerWidth: width, columns, margin, photos });
-    galleryStyle.height = thumbs[thumbs.length - 1].containerHeight;
-  }
+  
+  //builder.setContainerWidth(containerWidth);
 
-  console.log(`====== `, {listItems})
+  const styles = builder.getStyle();
+  console.log(`====== `, {photosData, styles, listItems})
   
   return (
     <div className="react-photo-gallery--gallery">
-      <div ref={galleryEl} style={galleryStyle}>
-        {listItems.map((thumb, index) => {
+      <div ref={galleryEl} style={styles}>
+        {photosData.map((thumb, index) => {
           const { left, top, containerHeight, ...photo } = thumb;
           const date = moment(thumb.date);
           let showDate = false;

@@ -37,13 +37,24 @@ export const computeRowLayout = ({ containerWidth, limitNodeSearch, targetRowHei
   let path = findShortestPath(getNeighbors, '0', photos.length);
   path = path.map(node => +node);
   // console.log(`time to find the shortest path: ${(+new Date() - t)} ms`);
+  let photosRender = [...photos];
+
   for (let i = 1; i < path.length; ++i) {
-    const row = photos.slice(path[i - 1], path[i]);
+    const row = photosRender.slice(path[i - 1], path[i]);
     const height = getCommonHeight(row, containerWidth, margin);
+    // console.log(`==============================computeRowLayout`, {row, height})
     for (let j = path[i - 1]; j < path[i]; ++j) {
-      photos[j].width = round(height * ratio(photos[j]), 1);
-      photos[j].height = height;
+      // photosRender[j].width = round(height * ratio(photosRender[j]), 1);
+      // photosRender[j].height = height;
+
+      const objCopy = {...photosRender[j]};
+      objCopy.width = round(height * ratio(photos[j]), 1);
+      objCopy.height = height;
+      photosRender[j] = objCopy;
+      
     }
   }
-  return photos;
+
+  console.log(`==============================computeRowLayout`, {photosRender})
+  return photosRender;
 };

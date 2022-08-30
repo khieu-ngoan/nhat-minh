@@ -18,6 +18,7 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
 
   
   photo.src = `${IMAGE_URL}/${photo.src}`;
+  // photo.src = `${IMAGE_URL}/thumbnail/svg.svg`;
   // let imgPreload = `${IMAGE_URL}/${photo.thumbnail}`;
 
   return (
@@ -27,7 +28,8 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
       style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
       {...photo}
       onClick={onClick ? handleClick : null}
-      alt={""}
+      alt={photo.src}
+      title={photo.src}
     />
   // </LazyLoad>
   );
