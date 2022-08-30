@@ -1,1 +1,1 @@
-export let IMAGE_URL="/Minh";
+export let IMAGE_URL="/NguyenKhieuNhatMinh";
