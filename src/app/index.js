@@ -1,3 +1,3 @@
-import Photos from './Photos';
+import App from './app';
 
-export {Photos};
+export {App};
