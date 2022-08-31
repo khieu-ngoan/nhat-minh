@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IMAGE_URL } from './utils/env';
+import LazyLoad from 'react-lazyload'
+import { dnsRandom } from './utils/env';
 
 const imgWithClick = { cursor: 'pointer' };
 
@@ -17,21 +18,21 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
   };
 
   
-  photo.src = `${IMAGE_URL}/${photo.src}`;
+  photo.src = dnsRandom(photo.src);
   // photo.src = `${IMAGE_URL}/thumbnail/svg.svg`;
-  // let imgPreload = `${IMAGE_URL}/${photo.thumbnail}`;
+  let imgPreload = dnsRandom(photo.thumbnail);
 
   return (
-    // <LazyLoad key={key} once={true} placeholder={<img src={imgPreload} alt="..." />} >
-     <img
-      key={key}
-      style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
-      {...photo}
-      onClick={onClick ? handleClick : null}
-      alt={photo.src}
-      title={photo.src}
-    />
-  // </LazyLoad>
+    <LazyLoad key={key} once={true} placeholder={<img src={imgPreload} alt="..." />} >
+      <img
+        key={key}
+        style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
+        {...photo}
+        onClick={onClick ? handleClick : null}
+        alt={photo.src}
+        title={photo.src}
+      />
+    </LazyLoad>
   );
 };
 

@@ -55,7 +55,6 @@ const Gallery = React.memo(function Gallery({
       if( data.length < 1){
         return;
       }
-      console.log(`====== fetchData`, {page, data, builder});
 			setPage(page + 1);
       
       dispatch(setPhotos(data));
@@ -77,8 +76,7 @@ const Gallery = React.memo(function Gallery({
         animationFrameID = window.requestAnimationFrame(() => {
           //setContainerWidth(Math.floor(newWidth));
         
-          console.warn(`1. ==== builder.setContainerWidth`, {newWidth})
-          setContainerWidth( builder.setContainerWidth( newWidth ) );
+        setContainerWidth( builder.setContainerWidth( newWidth ) );
         //containerWidth = builder.getContainerWidth();
           // dispatch(setContainerWidth(Math.floor(newWidth)));
         });
@@ -139,14 +137,12 @@ const Gallery = React.memo(function Gallery({
   
   // no containerWidth until after first render with refs, skip calculations and render nothing
   if (!containerWidth) {
-    console.warn(`===== container width`, {containerWidth})
     return <div ref={galleryEl}>&nbsp;</div>;
   }
   
   //builder.setContainerWidth(containerWidth);
 
   const styles = builder.getStyle();
-  console.log(`====== `, {photosData, styles, listItems})
   
   return (
     <div className="react-photo-gallery--gallery">
@@ -164,7 +160,7 @@ const Gallery = React.memo(function Gallery({
             {/* <PhotoLoading photo={photo} /> */}
             <Suspense fallback={<PhotoLoading photo={photo} />}>
   						{ showDate && <DateLabel date={dateLatest} /> }
-              <LazyLoad  placeholder={<PhotoLoading />} offset={20} >
+              {/* <LazyLoad  placeholder={<PhotoLoading />} offset={20} > */}
                 {renderComponent({
                   left,
                   top,
@@ -176,7 +172,7 @@ const Gallery = React.memo(function Gallery({
                   onClick: onClick ? handleClick : null,
                   photo,
                 })}
-              </LazyLoad>
+              {/* </LazyLoad> */}
 					  </Suspense>
           </Fragment>;
         })}

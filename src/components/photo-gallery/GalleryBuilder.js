@@ -37,7 +37,6 @@ export class GalleryBuilder{
         this.targetRowHeight = 0;
         // this.columns = columns;
         this.containerWidth = 0;
-        console.log(`0 ============== builder contruction`)
     }
 
     init(payload){
@@ -50,12 +49,10 @@ export class GalleryBuilder{
         this.limitNodeSearch = payload.limitNodeSearch;
         this.targetRowHeight = payload.targetRowHeight;
         this.columns = payload.columns;
-        console.log(`0 ============== init builder`)
         
     }
 
     setContainerWidth(width){
-        console.log(`? ============== setContainerWidth`, {width})
         this.containerWidth = Math.floor(width);
         this.setPhotos();
         return this.containerWidth;
@@ -92,7 +89,6 @@ export class GalleryBuilder{
             }
 
             //galleryStyle = { display: 'flex', flexWrap: 'wrap', flexDirection: 'row' };
-            console.log(`2. ------- render photos row`, {photos, containerWidth, width})
             thumbs = computeRowLayout({ containerWidth: width, limitNodeSearch, targetRowHeight, margin, photos });
         }
 
@@ -118,7 +114,6 @@ export class GalleryBuilder{
 
     getPaginate(page){
         const { containerWidth, photos } = this;
-        console.log(`3. ================== getPaginate [${page}] containerW:[${this.containerWidth}]`, {containerWidth, photos,})
         if( this.containerWidth < 1 ){
             return [];
         }
