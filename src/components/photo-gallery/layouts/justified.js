@@ -42,7 +42,6 @@ export const computeRowLayout = ({ containerWidth, limitNodeSearch, targetRowHei
   for (let i = 1; i < path.length; ++i) {
     const row = photosRender.slice(path[i - 1], path[i]);
     const height = getCommonHeight(row, containerWidth, margin);
-    // console.log(`==============================computeRowLayout`, {row, height})
     for (let j = path[i - 1]; j < path[i]; ++j) {
       // photosRender[j].width = round(height * ratio(photosRender[j]), 1);
       // photosRender[j].height = height;
@@ -55,6 +54,5 @@ export const computeRowLayout = ({ containerWidth, limitNodeSearch, targetRowHei
     }
   }
 
-  console.log(`==============================computeRowLayout`, {photosRender})
   return photosRender;
 };
