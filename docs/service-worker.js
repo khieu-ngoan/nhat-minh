@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "//quanict.github.io/nhat-minh/precache-manifest.f409b55ff50afe14ceeaba2d53423e10.js"
+  "//quanict.github.io/nhat-minh/precache-manifest.bdb8475bce5e7411d0908eb9738d6acf.js"
 );
 
 workbox.clientsClaim();
