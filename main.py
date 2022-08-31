@@ -26,12 +26,9 @@ imageDB = db.reference("/images")
 # test=RealtimeDB.get()
 # print(test)
 # exit()
-#rootUrl = "https://quanict.github.io/NguyenKhieuNhatMinh/"
-rootUrl = "/Minh/"
-rootUrl = ""
-rootDir = os.path.dirname(os.path.abspath(__file__))+"/public/Minh"
-toConvertDir = os.path.dirname(os.path.abspath(__file__))+"/public/convert"
-publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/components/Gallery/"
+
+rootDir = os.path.dirname(os.path.abspath(__file__))+"/NhatMinh"
+publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/"
 dateLimit = datetime(2019, 1, 1)
 
 def thumbnail(file, firebaseId, replate=False):
@@ -69,8 +66,7 @@ def syncToFirebaseRealtime():
                         im = cv2.imread(filePath)
                         h, w, c = im.shape
                         imgFile = {
-                            "src": filePath.replace(rootDir, rootUrl),
-                            # "thumbnail": thumbnailImg.replace(rootDir, rootUrl),
+                            "src": filePath.replace(rootDir, NULL),
                             "width": 4,
                             "height": 3,
                             "date":date.strftime("%Y/%m/%d"),
@@ -94,7 +90,7 @@ def createJson(replate=False):
     imagesData=[]
 
     for id, image in imageDB.order_by_child("date").get().items():
-        image["thumbnail"] = thumbnail(rootDir+image["src"], id, replate).replace(rootDir, rootUrl)
+        image["thumbnail"] = thumbnail(rootDir+image["src"], id, replate).replace(rootDir+"/", '')
         # image["date"] = datetime.strptime(image["date"], '%Y/%m/%d')
         imagesData.append(image)
 
