@@ -70,7 +70,7 @@ def cleanFirebase(dirName=''):
     for i,firebaseFile in imageDB.get().items():
         print(i, firebaseFile)
         if firebaseFile['src'] not in images:
-            print(firebaseFile)
+            print(f"remove file [{firebaseFile['src']}]")
             exit()
 
 def syncToFirebaseRealtime():
