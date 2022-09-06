@@ -51,8 +51,24 @@ def thumbnail(file, firebaseId, replate=False):
     cropped.save(thumbnail,"jpeg")
     return thumbnail
 
+def cleanFirebase():
+    files = []
+    for root, dirs, files in os.walk(rootDir):
+        for file in files:
+            if file.endswith(".jpg") or file.endswith(".JPG"):
+                filePath = os.path.join(root, file) # create full path
+                dir = os.path.dirname(filePath)
+                dirBasename = os.path.basename(dir)
+                if len(dirBasename) == 6:
+                    date = datetime.strptime(dirBasename, '%y%m%d')
+                    
+                    if date >= dateLimit:
+                        src = filePath.replace(rootDir, '')[14::]
+                        files.append(src)
+    # result=next( (z for i,z in imageDB.get().items() if z["src"] == src), None)
+    print(files)
+
 def syncToFirebaseRealtime():
-    imagesData=[]
     for root, dirs, files in os.walk(rootDir):
         for file in files:
             if file.endswith(".jpg") or file.endswith(".JPG"):
@@ -66,22 +82,21 @@ def syncToFirebaseRealtime():
                         im = cv2.imread(filePath)
                         h, w, c = im.shape
                         imgFile = {
-                            "src": filePath.replace(rootDir, NULL),
+                            "src": filePath.replace(rootDir, '')[14::],
                             "width": 4,
                             "height": 3,
-                            "date":date.strftime("%Y/%m/%d"),
+                            "date":date.strftime("%Y-%m-%d"),
                         }
                         if( w < h):
                             imgFile["width"] = 3
                             imgFile["height"] = 4
 
-                        
                         result=next( (z for i,z in imageDB.get().items() if z["src"] == imgFile["src"]), None)
 
+                        # print(imgFile, result)
+                        # exit()
                         if result == None: # insert to firebase
                             imageDB.push().set(imgFile)
-
-                        imagesData.append(imgFile)
    
 def getSrc(imageObject):
     return imageObject.get('src')
@@ -111,9 +126,26 @@ def convertIphone():
     return True
 
 def main():
-    ap = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--action', help='foo help')
+    args = parser.parse_args()
+
+    if args.action=='thumb' or args.action == 'thumbnail':
+        return
+    elif args.action=='fire' or args.action == 'firebase':
+        syncToFirebaseRealtime()
+    elif args.action == 'firebase-clean':
+        cleanFirebase()
+    elif args.action=='json':
+        createJson(replate=False)
+    else :
+        syncToFirebaseRealtime()
+        print(args)
+        
+    
     # syncToFirebaseRealtime()
-    createJson(replate=False)
+    # createJson(replate=False)
+    
     
     
 

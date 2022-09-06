@@ -3,7 +3,7 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 import { useSelector, useDispatch } from 'react-redux'
 import { getPhotos } from '../../redux/gallery/photoSlice'
 import { Gallery, IMAGE_URL } from "../photo-gallery";
-import images from './data.json';
+import images from '../../data.json';
 import "./Gallery.css"
 /**
  * react-photo-gallery 
