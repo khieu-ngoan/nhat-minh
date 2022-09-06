@@ -62,15 +62,17 @@ def cleanFirebase(dirName=''):
                 dir = os.path.dirname(filePath)
                 dirBasename = os.path.basename(dir)
                 if len(dirBasename) == 6:
-                    src = filePath.replace(pathCheck, '')
+                    src = filePath.replace(pathCheck, '')[13::]
                     images.append(src)
     # result=next( (z for i,z in imageDB.get().items() if z["src"] == src), None)
-    # print( len(images) )
+    # print( images )
+    
     
     for i,firebaseFile in imageDB.get().items():
         print(i, firebaseFile)
         if firebaseFile['src'] not in images:
             print(f"remove file [{firebaseFile['src']}]")
+            firebaseFile.remove()
             exit()
 
 def syncToFirebaseRealtime():
