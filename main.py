@@ -32,9 +32,7 @@ publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/"
 dateLimit = datetime(2019, 1, 1)
 
 def thumbnail(file, firebaseId, replate=False):
-    
     thumbnail = f"{rootDir}/thumbnail/{firebaseId}.jpg"
-    
     if os.path.exists(thumbnail) and not replate:
         return thumbnail
 
@@ -51,22 +49,25 @@ def thumbnail(file, firebaseId, replate=False):
     cropped.save(thumbnail,"jpeg")
     return thumbnail
 
-def cleanFirebase():
+def cleanFirebase(dirName=''):
     files = []
-    for root, dirs, files in os.walk(rootDir):
+    pathCheck = rootDir
+    if len(dirName) > 0 :
+        pathCheck += f"/nhat-minh-{dirName}"
+    
+    for root, dirs, files in os.walk(pathCheck):
         for file in files:
             if file.endswith(".jpg") or file.endswith(".JPG"):
                 filePath = os.path.join(root, file) # create full path
                 dir = os.path.dirname(filePath)
                 dirBasename = os.path.basename(dir)
                 if len(dirBasename) == 6:
-                    date = datetime.strptime(dirBasename, '%y%m%d')
-                    
-                    if date >= dateLimit:
-                        src = filePath.replace(rootDir, '')[14::]
-                        files.append(src)
+                    src = filePath.replace(pathCheck, '')[1::]
+                    files.push(src)
+                    print(f"check file [{src}]")
+                    # exit()
     # result=next( (z for i,z in imageDB.get().items() if z["src"] == src), None)
-    print(files)
+    print(files.count)
 
 def syncToFirebaseRealtime():
     for root, dirs, files in os.walk(rootDir):
@@ -135,7 +136,7 @@ def main():
     elif args.action=='fire' or args.action == 'firebase':
         syncToFirebaseRealtime()
     elif args.action == 'firebase-clean':
-        cleanFirebase()
+        cleanFirebase("19")
     elif args.action=='json':
         createJson(replate=False)
     else :
