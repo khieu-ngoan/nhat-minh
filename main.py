@@ -50,7 +50,7 @@ def thumbnail(file, firebaseId, replate=False):
     return thumbnail
 
 def cleanFirebase(dirName=''):
-    files = []
+    images = []
     pathCheck = rootDir
     if len(dirName) > 0 :
         pathCheck += f"/nhat-minh-{dirName}"
@@ -63,11 +63,9 @@ def cleanFirebase(dirName=''):
                 dirBasename = os.path.basename(dir)
                 if len(dirBasename) == 6:
                     src = filePath.replace(pathCheck, '')[1::]
-                    files.push(src)
-                    print(f"check file [{src}]")
-                    # exit()
+                    images.append(src)
     # result=next( (z for i,z in imageDB.get().items() if z["src"] == src), None)
-    print(files.count)
+    print( len(images) )
 
 def syncToFirebaseRealtime():
     for root, dirs, files in os.walk(rootDir):
