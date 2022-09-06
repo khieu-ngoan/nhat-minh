@@ -134,14 +134,13 @@ def main():
     elif args.action=='fire' or args.action == 'firebase':
         syncToFirebaseRealtime()
     elif args.action == 'firebase-clean':
-        cleanFirebase("19")
+        cleanFirebase()
     elif args.action=='json':
         createJson(replate=False)
     else :
         syncToFirebaseRealtime()
         print(args)
         
-    
     # syncToFirebaseRealtime()
     # createJson(replate=False)
     
