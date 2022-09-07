@@ -10,4 +10,8 @@ options = { 'databaseURL': "https://nhatminh-images-default-rtdb.firebaseio.com/
 firebase_admin.initialize_app( cert, options)
 imageDB = db.reference("/images")
 dateLimit = datetime(2019, 1, 1)
+
 rootDir = os.path.dirname(os.path.abspath(__file__))+"/../NhatMinh"
+publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/"
+
+thumbWidth = 300
