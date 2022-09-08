@@ -6,6 +6,11 @@ from firebase_admin import db
 from .const import rootDir, dateLimit, imageDB
 from .json import directory2Json
 
+## --------------------------------------------------------
+## document 
+## https://firebase.google.com/docs/admin/setup#python
+## --------------------------------------------------------
+
 def syncToFirebaseRealtime():
     firebaseData = imageDB.get().items()
     for root, dirs, files in os.walk(rootDir):
@@ -64,3 +69,33 @@ def cleanFirebase(dirName=''):
         if firebaseFile['src'] not in images:
             print(f"remove file [{firebaseFile['src']}]")
             db.reference('/images/{0}'.format(i)).delete()
+
+def cdnMigrate():
+    for i,firebaseFile in imageDB.get().items():
+        
+        # if 'cdn' in firebaseFile.keys():
+        #     continue
+       
+        if firebaseFile['date'].find('/') > -1 :
+            date = datetime.strptime(firebaseFile['date'], '%Y/%m/%d')
+            
+        elif firebaseFile['date'].find('-') > -1 :
+            date = datetime.strptime(firebaseFile['date'], '%Y-%m-%d')
+            
+        firebaseFile['date'] = date.strftime("%Y-%m-%d")
+        
+        if date.strftime("%Y") == "2022" :
+            firebaseFile['cdn'] = 'nhat-minh-22'
+        elif date.strftime("%Y") == "2021" :
+            firebaseFile['cdn'] = 'nhat-minh-21'
+        elif date.strftime("%Y") == "2020" :
+            firebaseFile['cdn'] = 'nhat-minh-20'
+        elif date.strftime("%Y") == "2019" :
+            firebaseFile['cdn'] = 'nhat-minh-19'
+        
+        print(i, firebaseFile['src'])
+        # exit()
+
+        db.reference('/images/{0}'.format(i)).update(firebaseFile)
+        # print(i, firebaseFile, date)
+        # exit()

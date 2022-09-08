@@ -12,6 +12,6 @@ imageDB = db.reference("/images")
 dateLimit = datetime(2019, 1, 1)
 
 rootDir = os.path.dirname(os.path.abspath(__file__))+"/../NhatMinh"
-publicDir = os.path.dirname(os.path.abspath(__file__))+"/src/"
+publicDir = os.path.dirname(os.path.abspath(__file__))+"/../src/"
 
-thumbWidth = 300
+thumbWidth = 100
