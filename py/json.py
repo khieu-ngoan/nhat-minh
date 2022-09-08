@@ -23,6 +23,8 @@ def createJson(cdn):
         
         if date.strftime("%y") != str(cdn):
             continue
+        firebaseFile['src'] = f"{firebaseFile['cdn']}{firebaseFile['src']}"
+        firebaseFile['thumbnail'] = f"{firebaseFile['cdn']}/thumbnail/{id}.jpg"
         
         imagesData.append(firebaseFile)
 

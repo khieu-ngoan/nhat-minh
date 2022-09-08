@@ -24,21 +24,18 @@ def createThumbs(dirName, replate=False):
             filePath = os.path.join(root, file) # create full path
             dir = os.path.dirname(filePath)
             dirBasename = os.path.basename(dir)
-            # print(file, file.endswith(".jpg"))
+            print(f"createThumbs: [{file}]")
             if file.endswith(".jpg") != True or len(dirBasename) != 6:
                 continue
-
            
             src = filePath.replace(pathCheck, '')
-            firebaseId = next( (i for i,z in imageDB.get().items() if z["src"] == src), None)
+            firebaseId = next( (i for i,z in filebaseData if z["src"] == src), None)
 
             thumbnail = f"{dir}/../thumbnail/{firebaseId}.jpg"
             if os.path.exists(thumbnail) and not replate:
                 continue
 
-            
             img = Image.open(filePath).convert("RGB")
-            
             wpercent = (thumbWidth / float(img.size[0]))
             heigthSize = int((float(img.size[1]) * float(wpercent)))
             img_thumb = img.resize((thumbWidth, heigthSize), PIL.Image.ANTIALIAS)

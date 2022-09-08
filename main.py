@@ -6,6 +6,7 @@ from PIL import Image
 from py.json import directory2Json, createJson
 from py.firebase import syncToFirebaseRealtime, cleanFirebase, cdnMigrate
 from py.tool import createThumbs
+from py.file import underMigrate
 
 
 def getSrc(imageObject):
@@ -20,15 +21,19 @@ def main():
         createThumbs(22)
         return
     elif args.action == 'firebase':
-        # syncToFirebaseRealtime()
-        cdnMigrate()
+        syncToFirebaseRealtime()
+        # cdnMigrate()
     elif args.action == 'firebase-clean':
         cleanFirebase()
     elif args.action=='json':
         createJson(22)
-    else :
+    elif args.action=='upgrade':
         syncToFirebaseRealtime()
-        print(args)
+        createThumbs(22)
+        createJson(22)
+    else :
+        # underMigrate(19)
+        print("no action")
     # syncToFirebaseRealtime()
     # createJson(replate=False)
     

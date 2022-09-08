@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "//quanict.github.io/nhat-minh/precache-manifest.bdb8475bce5e7411d0908eb9738d6acf.js"
+  "//minh.quanict.com/precache-manifest.29566cce41ca478ab7bc6bc9df07f767.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("//quanict.github.io/nhat-minh/index.html", {
+workbox.routing.registerNavigationRoute("//minh.quanict.com/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });

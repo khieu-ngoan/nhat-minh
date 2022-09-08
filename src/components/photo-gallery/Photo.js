@@ -19,7 +19,6 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
 
   
   photo.src = dnsRandom(photo.src);
-  // photo.src = `${IMAGE_URL}/thumbnail/svg.svg`;
   let imgPreload = dnsRandom(photo.thumbnail);
 
   return (

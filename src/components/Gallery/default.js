@@ -3,7 +3,7 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 import { useSelector, useDispatch } from 'react-redux'
 import { getPhotos } from '../../redux/gallery/photoSlice'
 import { Gallery, IMAGE_URL } from "../photo-gallery";
-import images from '../../data.json';
+import {images} from "./data";
 import "./Gallery.css"
 /**
  * react-photo-gallery 
@@ -23,7 +23,6 @@ function GalleryDefault() {
     const closeLightbox = () => {
         setViewerIsOpen(false);
     };
-    const photos = useSelector(getPhotos)
 
     return <>
     <Gallery photos={images} onClick={openLightbox} direction={"row"} />
@@ -33,7 +32,7 @@ function GalleryDefault() {
          <Modal onClose={closeLightbox}>
            <Carousel
              currentIndex={currentImage}
-             views={photos.map(x => ({
+             views={useSelector(getPhotos).map(x => ({
                ...x,
                caption: "x.title",
                alt:"alt",
