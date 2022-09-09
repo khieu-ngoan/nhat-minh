@@ -1,13 +1,13 @@
 {
-  "main.css": "//minh.quanict.com/static/css/main.50b166eb.chunk.css",
-  "main.js": "//minh.quanict.com/static/js/main.bcdff7b1.chunk.js",
-  "main.js.map": "//minh.quanict.com/static/js/main.bcdff7b1.chunk.js.map",
-  "runtime~main.js": "//minh.quanict.com/static/js/runtime~main.ab152bb2.js",
-  "runtime~main.js.map": "//minh.quanict.com/static/js/runtime~main.ab152bb2.js.map",
-  "static/js/2.b6dca228.chunk.js": "//minh.quanict.com/static/js/2.b6dca228.chunk.js",
-  "static/js/2.b6dca228.chunk.js.map": "//minh.quanict.com/static/js/2.b6dca228.chunk.js.map",
-  "index.html": "//minh.quanict.com/index.html",
-  "precache-manifest.29566cce41ca478ab7bc6bc9df07f767.js": "//minh.quanict.com/precache-manifest.29566cce41ca478ab7bc6bc9df07f767.js",
-  "service-worker.js": "//minh.quanict.com/service-worker.js",
-  "static/css/main.50b166eb.chunk.css.map": "//minh.quanict.com/static/css/main.50b166eb.chunk.css.map"
+  "main.css": "//quanict.github.io/nhat-minh/static/css/main.464c4065.chunk.css",
+  "main.js": "//quanict.github.io/nhat-minh/static/js/main.0cd05c20.chunk.js",
+  "main.js.map": "//quanict.github.io/nhat-minh/static/js/main.0cd05c20.chunk.js.map",
+  "runtime~main.js": "//quanict.github.io/nhat-minh/static/js/runtime~main.faaafbc3.js",
+  "runtime~main.js.map": "//quanict.github.io/nhat-minh/static/js/runtime~main.faaafbc3.js.map",
+  "static/js/2.9b9f25b6.chunk.js": "//quanict.github.io/nhat-minh/static/js/2.9b9f25b6.chunk.js",
+  "static/js/2.9b9f25b6.chunk.js.map": "//quanict.github.io/nhat-minh/static/js/2.9b9f25b6.chunk.js.map",
+  "index.html": "//quanict.github.io/nhat-minh/index.html",
+  "precache-manifest.91791a04bc779b41ff2c8c850c6c66e7.js": "//quanict.github.io/nhat-minh/precache-manifest.91791a04bc779b41ff2c8c850c6c66e7.js",
+  "service-worker.js": "//quanict.github.io/nhat-minh/service-worker.js",
+  "static/css/main.464c4065.chunk.css.map": "//quanict.github.io/nhat-minh/static/css/main.464c4065.chunk.css.map"
 }

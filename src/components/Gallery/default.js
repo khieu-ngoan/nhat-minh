@@ -3,6 +3,7 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 import { useSelector, useDispatch } from 'react-redux'
 import { getPhotos } from '../../redux/gallery/photoSlice'
 import { Gallery, IMAGE_URL } from "../photo-gallery";
+import { dnsRandom } from "../photo-gallery/utils/env";
 import {images} from "./data";
 import "./Gallery.css"
 /**
@@ -24,6 +25,7 @@ function GalleryDefault() {
         setViewerIsOpen(false);
     };
 
+    const photosViewalble = useSelector(getPhotos);
     return <>
     <Gallery photos={images} onClick={openLightbox} direction={"row"} />
      
@@ -32,15 +34,14 @@ function GalleryDefault() {
          <Modal onClose={closeLightbox}>
            <Carousel
              currentIndex={currentImage}
-             views={useSelector(getPhotos).map(x => ({
+             views={photosViewalble.map(x => ({
                ...x,
                caption: "x.title",
                alt:"alt",
                source: {
-                 // download: x.src,
                  // fullscreen: x.src,
-                 regular: `${IMAGE_URL}/${x.src}`,
-                 thumbnail: `${IMAGE_URL}/${x.thumbnail}`
+                 regular: `${dnsRandom(x.src)}`,
+                 thumbnail: `${dnsRandom(x.thumbnail)}`
                }
              }))}
            />
