@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "51ea3902f93933376b8e",
+    "revision": "067fccd0507bfa057729",
     "url": "//quanict.github.io/nhat-minh/static/css/main.464c4065.chunk.css"
   },
   {
-    "revision": "51ea3902f93933376b8e",
-    "url": "//quanict.github.io/nhat-minh/static/js/main.0cd05c20.chunk.js"
+    "revision": "067fccd0507bfa057729",
+    "url": "//quanict.github.io/nhat-minh/static/js/main.37d6790e.chunk.js"
   },
   {
     "revision": "f7ec47ccf07a40296575",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "//quanict.github.io/nhat-minh/static/js/2.9b9f25b6.chunk.js"
   },
   {
-    "revision": "54ec873fde4dffced49ba5ff4822d260",
+    "revision": "f1eb3db85e966a04f307e561d2c6dcc5",
     "url": "//quanict.github.io/nhat-minh/index.html"
   }
 ];
