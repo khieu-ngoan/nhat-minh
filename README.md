@@ -83,3 +83,7 @@ python3 main.py
 ```
 npm run-script build
 ```
+
+## firebase admin documentation
+
+> https://firebase.blog/posts/2017/07/accessing-database-from-python-admin-sdk
