@@ -17,6 +17,8 @@ def main():
     parser.add_argument('--action', help='foo help')
     args = parser.parse_args()
 
+    print(args)
+    exit()
     if args.action=='thumb' or args.action == 'thumbnail':
         createThumbs(22)
         return
