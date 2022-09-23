@@ -28,7 +28,7 @@ def main():
     elif args.action == 'firebase-clean':
         cleanFirebase()
     elif args.action=='json':
-        createJson(19)
+        createJson(22)
     elif args.action=='upgrade':
         syncToFirebaseRealtime()
         createThumbs(22)
