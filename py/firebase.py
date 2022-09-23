@@ -1,9 +1,13 @@
 import os
+from urllib import response
+import uuid
 import cv2
 from datetime import datetime
 from firebase_admin import db
-from .const import rootDir, dateLimit, imageDB
+from .const import rootDir, dateLimit, imageRef
+from .const import API_CREATE, API_FIND_FILE
 from .json import directory2Json
+import requests
 
 ## --------------------------------------------------------
 ## document 
@@ -12,7 +16,7 @@ from .json import directory2Json
 
 def syncToFirebaseRealtime():
     # firebaseData = imageDB.get().items()
-    dbFiles = imageDB.get()
+    # dbFiles = imageDB.get()
 
     for root, dirs, files in os.walk(rootDir):
         for file in files:
@@ -21,14 +25,20 @@ def syncToFirebaseRealtime():
                 fileSrc = filePath.replace(rootDir, '')[13::]
                 dir = os.path.dirname(filePath)
                 dirBasename = os.path.basename(dir)
-                if dirBasename !='thumbnail' or len(dirBasename) != 6:
-                    print(f"skip add by dir-name [{dirBasename}/{file}]")
+                
+                if dirBasename =='thumbnail' or len(dirBasename) != 6:
+                    # print(f"skip add by dir-name [{dirBasename}/{file}]")
                     continue
                 
                 date = datetime.strptime(dirBasename, '%y%m%d')
-                result=next( (z for i,z in dbFiles.items() if z["src"] == fileSrc), None)
+                # result=next( (z for i,z in dbFiles if z["src"] == fileSrc), None)
+                # Create a query against the collection
+                result = imageRef.where(u'src', u'==', fileSrc)
                 
-                if date < dateLimit or result != None:
+                # print( , len(result.get()))
+                
+                # exit()
+                if date < dateLimit or len(result.get()) > 0 :
                     # print(f"skip add by {date} [{dirBasename}/{file}]", result)
                     continue
                 
@@ -50,8 +60,50 @@ def syncToFirebaseRealtime():
                 # if result == None:
                 #     print("add to firebase", imgFile)
                 print(f"add new to firebase [{dirBasename}/{file}]")
-                imageDB.push().set(imgFile)
-                    
+                # imageDB.push().set(imgFile)
+                
+                imageRef.document().set(imgFile)
+                print(imgFile)
+                # exit()
+
+def syncToMySql():
+    for root, dirs, files in os.walk(rootDir):
+        for file in files:
+            if file.endswith(".jpg") or file.endswith(".JPG"):
+                filePath = os.path.join(root, file) # create full path
+                fileSrc = filePath.replace(rootDir, '')[13::]
+                dir = os.path.dirname(filePath)
+                dirBasename = os.path.basename(dir)
+                
+                if dirBasename =='thumbnail' or len(dirBasename) != 6:
+                    # print(f"skip add by dir-name [{dirBasename}/{file}]")
+                    continue
+                
+                date = datetime.strptime(dirBasename, '%y%m%d')
+                # result=next( (z for i,z in dbFiles if z["src"] == fileSrc), None)
+                # Create a query against the collection
+                # result = imageRef.where(u'src', u'==', fileSrc)
+                response = requests.post(API_FIND_FILE, data={"src":fileSrc})
+
+                if date < dateLimit or response.status_code==200 :
+                    continue
+                
+                im = cv2.imread(filePath)
+                h, w, c = im.shape
+                imgFile = {
+                    "src": fileSrc,
+                    "code": uuid.uuid4().urn[9::],
+                    "width": 4,
+                    "height": 3,
+                    "date":date.strftime("%Y-%m-%d"),
+                    "cdn": "nhat-minh-"+date.strftime("%y")
+                }
+                if( w < h):
+                    imgFile["width"] = 3
+                    imgFile["height"] = 4
+
+                print(f"add new to firebase [{dirBasename}/{file}]")
+                response = requests.post(API_CREATE, data=imgFile)
 
 def cleanFirebase(dirName=''):
     images = []
@@ -71,13 +123,13 @@ def cleanFirebase(dirName=''):
     
     directory2Json(images, rootDir)
     
-    for i,firebaseFile in imageDB.get().items():
+    for i,firebaseFile in imageDBRealtime.get().items():
         if firebaseFile['src'] not in images:
             print(f"remove file [{firebaseFile['src']}]")
             db.reference('/images/{0}'.format(i)).delete()
 
 def cdnMigrate():
-    for i,firebaseFile in imageDB.get().items():
+    for i,firebaseFile in imageDBRealtime.get().items():
         
         # if 'cdn' in firebaseFile.keys():
         #     continue

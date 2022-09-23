@@ -1,6 +1,7 @@
 {
   "name": "nhatminh-photos",
   "version": "0.1.0",
+  "homepage": "https://quanict.github.io/nhat-minh",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",

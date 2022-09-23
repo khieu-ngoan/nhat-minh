@@ -2,7 +2,7 @@
 import os
 from firebase_admin import db
 from .const import rootDir
-from .const import imageDB
+from .const import imageDBRealtime
 
 def getImages(dirName):
     images = []
@@ -29,7 +29,7 @@ def underMigrate(dirName):
     
     if len(dirName) > 0 :
         pathCheck += f"/nhat-minh-{dirName}"
-    dbFiles = imageDB.get()
+    dbFiles = imageDBRealtime.get()
     
     for root, dirs, files in os.walk(pathCheck):
         for file in files:

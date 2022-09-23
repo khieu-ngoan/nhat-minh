@@ -4,7 +4,7 @@ from os.path import exists
 import PIL
 from PIL import Image
 from py.json import directory2Json, createJson
-from py.firebase import syncToFirebaseRealtime, cleanFirebase, cdnMigrate
+from py.firebase import syncToFirebaseRealtime, cleanFirebase, cdnMigrate, syncToMySql
 from py.tool import createThumbs
 from py.file import underMigrate
 
@@ -12,18 +12,18 @@ from py.file import underMigrate
 def getSrc(imageObject):
     return imageObject.get('src')
 
+# py main.py --action=thumb
+# py main.py --action=firebase
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--action', help='foo help')
     args = parser.parse_args()
 
-    print(args)
-    exit()
     if args.action=='thumb' or args.action == 'thumbnail':
-        createThumbs(22)
+        createThumbs(19)
         return
     elif args.action == 'firebase':
-        syncToFirebaseRealtime()
+        syncToMySql()
         # cdnMigrate()
     elif args.action == 'firebase-clean':
         cleanFirebase()

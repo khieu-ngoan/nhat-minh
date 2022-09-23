@@ -1,6 +1,6 @@
 import json, os.path
 from datetime import datetime
-from .const import imageDB, publicDir
+from .const import imageDBRealtime, publicDir, imageDBStream, imageDBFirestore, imageRef
 
 def directory2Json(imagesData, exportDir):
     # imagesData = sorted( imagesData, key=lambda x: x["src"], reverse = True)
@@ -17,8 +17,13 @@ def directory2Json(imagesData, exportDir):
 
 def createJson(cdn):
     imagesData=[]
-
-    for id, firebaseFile in imageDB.order_by_child("date").get().items():
+    # for img in imageDBFirestore:
+    for img in imageDBStream:
+        print(img.to_dict())
+        exit()
+    print("test", imageRef.get())
+    exit()
+    for id, firebaseFile in imageDBRealtime.order_by_child("date").get().items():
         date = datetime.strptime(firebaseFile['date'], '%Y-%m-%d')
         
         if date.strftime("%y") != str(cdn):
