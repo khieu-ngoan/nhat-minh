@@ -18,7 +18,7 @@ def directory2Json(imagesData, exportDir):
 def createJson(cdn):
     imagesData=[]
     # for img in imageDBFirestore:
-    response = requests.get(API_IMAGES, data={"year":cdn})
+    response = requests.get(API_IMAGES+ '?year=20'+str(cdn))
 
     if response.status_code!=200 :
         print("data is empty")
