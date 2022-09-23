@@ -23,3 +23,4 @@ thumbWidth = 100
 API_HOST        = "http://tiengnhatdehieu.loc/photos/api/photo"
 API_CREATE      = API_HOST+"/create"
 API_FIND_FILE   = API_HOST+"/find"
+API_IMAGES      = API_HOST+"/list"

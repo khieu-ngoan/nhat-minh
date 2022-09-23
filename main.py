@@ -20,7 +20,7 @@ def main():
     args = parser.parse_args()
 
     if args.action=='thumb' or args.action == 'thumbnail':
-        createThumbs(19)
+        createThumbs(22)
         return
     elif args.action == 'firebase':
         syncToMySql()

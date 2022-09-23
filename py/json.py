@@ -1,6 +1,6 @@
-import json, os.path
+import json, os.path, requests
 from datetime import datetime
-from .const import imageDBRealtime, publicDir, imageDBStream, imageDBFirestore, imageRef
+from .const import imageDBRealtime, publicDir, API_IMAGES
 
 def directory2Json(imagesData, exportDir):
     # imagesData = sorted( imagesData, key=lambda x: x["src"], reverse = True)
@@ -18,25 +18,27 @@ def directory2Json(imagesData, exportDir):
 def createJson(cdn):
     imagesData=[]
     # for img in imageDBFirestore:
-    for img in imageDBStream:
-        print(img.to_dict())
+    response = requests.get(API_IMAGES, data={"year":cdn})
+
+    if response.status_code!=200 :
+        print("data is empty")
         exit()
-    print("test", imageRef.get())
-    exit()
-    for id, firebaseFile in imageDBRealtime.order_by_child("date").get().items():
-        date = datetime.strptime(firebaseFile['date'], '%Y-%m-%d')
+
+    # for model in response.json()['data']:
+    #     date = datetime.strptime(model['date'], '%Y-%m-%d')
         
-        if date.strftime("%y") != str(cdn):
-            continue
-        firebaseFile['src'] = f"{firebaseFile['cdn']}{firebaseFile['src']}"
-        firebaseFile['thumbnail'] = f"{firebaseFile['cdn']}/thumbnail/{id}.jpg"
+    #     if date.strftime("%y") != str(cdn):
+    #         continue
+    #     firebaseFile['src'] = f"{firebaseFile['cdn']}{firebaseFile['src']}"
+    #     firebaseFile['thumbnail'] = f"{firebaseFile['cdn']}/thumbnail/{id}.jpg"
         
-        imagesData.append(firebaseFile)
+    #     imagesData.append(firebaseFile)
 
     
-    imagesData = sorted( imagesData, key=lambda x: x["src"], reverse = True)
-    imagesData = sorted( imagesData, key=lambda x: x["date"], reverse = True )
+    # imagesData = sorted( imagesData, key=lambda x: x["src"], reverse = True)
+    # imagesData = sorted( imagesData, key=lambda x: x["date"], reverse = True )
     
+    imagesData = response.json()['data']
     jsonFile = os.path.join(publicDir,f"data-{str(cdn)}.json")
     if os.path.exists(jsonFile):
         os.remove(jsonFile)
