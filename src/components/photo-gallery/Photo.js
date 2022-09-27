@@ -18,9 +18,10 @@ const Photo = ({ index, onClick, photo, margin, direction, top, left, key }) => 
   };
 
   
-  photo.src = dnsRandom(photo.src);
+  
   let imgPreload = dnsRandom(photo.thumbnail);
-
+  photo.src = dnsRandom(photo.src);
+  // photo.src = dnsRandom(photo.thumbnail);
   return (
     <LazyLoad key={key} once={true} placeholder={<img src={imgPreload} alt="..." />} >
       <img

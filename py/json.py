@@ -22,6 +22,7 @@ def createJson(cdn):
 
     if response.status_code!=200 :
         print("data is empty")
+        print(response.content)
         exit()
 
     # for model in response.json()['data']:

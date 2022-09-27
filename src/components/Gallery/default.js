@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getPhotos } from '../../redux/gallery/photoSlice'
-import { Gallery, IMAGE_URL } from "../photo-gallery";
+import { Gallery } from "../photo-gallery";
 import { dnsRandom } from "../photo-gallery/utils/env";
 import {images} from "./data";
 import "./Gallery.css"

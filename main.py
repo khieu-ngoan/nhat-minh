@@ -22,7 +22,7 @@ def main():
     if args.action=='thumb' or args.action == 'thumbnail':
         createThumbs(22)
         return
-    elif args.action == 'firebase':
+    elif args.action == 'to-sql':
         syncToMySql()
         # cdnMigrate()
     elif args.action == 'firebase-clean':
@@ -30,7 +30,7 @@ def main():
     elif args.action=='json':
         createJson(22)
     elif args.action=='upgrade':
-        syncToFirebaseRealtime()
+        syncToMySql()
         createThumbs(22)
         createJson(22)
     else :

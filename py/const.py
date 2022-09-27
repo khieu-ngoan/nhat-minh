@@ -13,9 +13,9 @@ imageDBRealtime = db.reference("/images")
 imageRef = firestore.client().collection("images")
 imageDBFirestore = imageRef.document()
 imageDBStream = imageRef.stream()
-dateLimit = datetime(2019, 1, 1)
+dateLimit = datetime(2022, 6, 10)
 
-rootDir = os.path.dirname(os.path.abspath(__file__))+"/../NhatMinh"
+rootDir = os.path.dirname(os.path.abspath(__file__))+"/../../"
 publicDir = os.path.dirname(os.path.abspath(__file__))+"/../src/"
 
 thumbWidth = 100

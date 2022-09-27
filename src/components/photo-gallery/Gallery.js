@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef, Fragment, useEffect, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setPhotos, getPhotos, getContainerWidth } from '../../redux/gallery/photoSlice'
+import { setPhotos, getPhotos} from '../../redux/gallery/photoSlice'
 import PropTypes from 'prop-types';
 import ResizeObserver from 'resize-observer-polyfill';
 import { photoPropType } from './Photo';

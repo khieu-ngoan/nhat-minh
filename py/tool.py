@@ -29,7 +29,6 @@ def createThumbs(dirName, replate=False):
             if response.status_code != 200 :
                 continue
 
-            
             uuid = response.json()['data'][0]['code']
 
             thumbnail = f"{dir}/../thumbnail/{uuid}.jpg"

@@ -67,25 +67,32 @@ def syncToFirebaseRealtime():
                 # exit()
 
 def syncToMySql():
-    for root, dirs, files in os.walk(rootDir):
+    dirWalk = f"{rootDir}nhat-minh-22"
+    print(f"check dir [{dirWalk}]")
+    for root, dirs, files in os.walk(dirWalk):
         for file in files:
             if file.endswith(".jpg") or file.endswith(".JPG"):
                 filePath = os.path.join(root, file) # create full path
-                fileSrc = filePath.replace(rootDir, '')[13::]
+                fileSrc = filePath.replace(rootDir, '')[12::]
                 dir = os.path.dirname(filePath)
                 dirBasename = os.path.basename(dir)
                 
                 if dirBasename =='thumbnail' or len(dirBasename) != 6:
                     # print(f"skip add by dir-name [{dirBasename}/{file}]")
+                    print(f"[{dirBasename}/{file}] format is incorrect")
                     continue
                 
                 date = datetime.strptime(dirBasename, '%y%m%d')
-                # result=next( (z for i,z in dbFiles if z["src"] == fileSrc), None)
-                # Create a query against the collection
-                # result = imageRef.where(u'src', u'==', fileSrc)
+                if date < dateLimit:
+                    print(f"[{dirBasename}/{file}] is out of date")
+                    # print(response.content)
+                    continue
+                
                 response = requests.post(API_FIND_FILE, data={"src":fileSrc})
 
-                if date < dateLimit or response.status_code==200 :
+                if response.status_code==200 :
+                    print(f"[{fileSrc}] [response-status={response.status_code}] is out of date")
+                    # print(response.content)
                     continue
                 
                 im = cv2.imread(filePath)
@@ -102,8 +109,11 @@ def syncToMySql():
                     imgFile["width"] = 3
                     imgFile["height"] = 4
 
-                print(f"add new to firebase [{dirBasename}/{file}]")
+                print(f"add new to firebase [{dirBasename}/{file}] ====> [src={fileSrc}]")
                 response = requests.post(API_CREATE, data=imgFile)
+                if response.status_code!=200 :
+                    print(response.status_code, imgFile)
+                    exit()
 
 def cleanFirebase(dirName=''):
     images = []

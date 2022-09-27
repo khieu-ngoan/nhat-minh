@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { findIdealNodeSearch } from '../../components/photo-gallery/utils/findIdealNodeSearch';
-import { computeRowLayout } from '../../components/photo-gallery/layouts/justified';
-import { computeColumnLayout } from '../../components/photo-gallery/layouts/columns';
+// import { findIdealNodeSearch } from '../../components/photo-gallery/utils/findIdealNodeSearch';
+// import { computeRowLayout } from '../../components/photo-gallery/layouts/justified';
+// import { computeColumnLayout } from '../../components/photo-gallery/layouts/columns';
 
 export const photoSlice = createSlice({
   name: 'photos',
@@ -23,9 +23,5 @@ export const photoSlice = createSlice({
 
 export const { setPhotos, addPhotos, setContainerWidth, setData } = photoSlice.actions;
 export const getPhotos = (state) => state.photos.photos;
-
-
-
-
 
 export default photoSlice.reducer;

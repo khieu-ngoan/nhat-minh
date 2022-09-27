@@ -4,28 +4,28 @@ import { computeColumnLayout } from './layouts/columns';
 
 const offset = 20;
 
-const galleryBuilder = (function() {
-    let instance;
+// const galleryBuilder = (function() {
+//     let instance;
 
-    function init() {
-      var number = 0;
-      return {
-        setNumber : function(x) {
-          number = x;
-        },
-        getNumber : function() {
-          return number;
-        }
-      };
-    }
+//     function init() {
+//       var number = 0;
+//       return {
+//         setNumber : function(x) {
+//           number = x;
+//         },
+//         getNumber : function() {
+//           return number;
+//         }
+//       };
+//     }
   
-    return {
-      getInstance : function() {
-        if (!instance) instance = init();
-        return instance;
-      }
-    }
-})();
+//     return {
+//       getInstance : function() {
+//         if (!instance) instance = init();
+//         return instance;
+//       }
+//     }
+// })();
 
 // export default galleryBuilder;
 
@@ -113,7 +113,7 @@ export class GalleryBuilder{
     }
 
     getPaginate(page){
-        const { containerWidth, photos } = this;
+        // const { containerWidth, photos } = this;
         if( this.containerWidth < 1 ){
             return [];
         }
