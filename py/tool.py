@@ -29,7 +29,14 @@ def createThumbs(dirName, replate=False):
             if response.status_code != 200 :
                 continue
 
-            uuid = response.json()['data'][0]['code']
+            try:
+                uuid = response.json()['data'][0]['code']
+            except:
+                
+                print(response.content)
+                print("get error")
+                exit()
+            
 
             thumbnail = f"{dir}/../thumbnail/{uuid}.jpg"
             if os.path.exists(thumbnail) and not replate:

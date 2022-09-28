@@ -109,9 +109,9 @@ def syncToMySql():
                     imgFile["width"] = 3
                     imgFile["height"] = 4
 
-                print(f"add new to firebase [{dirBasename}/{file}] ====> [src={fileSrc}]")
+                print(f"add new to DB [{dirBasename}/{file}] ====> [src={fileSrc}]")
                 response = requests.post(API_CREATE, data=imgFile)
-                if response.status_code!=200 :
+                if response.status_code!=201 :
                     print(response.status_code, imgFile)
                     exit()
 
