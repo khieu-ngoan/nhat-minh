@@ -9,11 +9,11 @@
 /coverage
 
 # production
-
+build
 NhatMinh
-/public/convert
-/docs/Minh
+public/convert
 nhatminh-images-adb45fdea658.json
+
 # misc
 .DS_Store
 .env.local
