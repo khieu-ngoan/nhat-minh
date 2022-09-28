@@ -32,6 +32,11 @@ jobs:
       matrix:
         node-version: [14.19.3]
 
+    env:
+      # REACT_APP_MY_SECRET: ${{ secrets.MY_SECRET }}
+      REACT_APP_HOSTS: //loospswmzn.quanict.com,//zhqlewtnnp.quanict.com,//vnrnhqkujr.quanict.com,//qrseyxujmp.quanict.com,//ezndtfqttk.quanict.com,//oamgohwmxv.quanict.com,//kapmmsvltn.quanict.com,//hojvvbhhaq.quanict.com,//rgmehgpjkf.quanict.com,//cogmznxigi.quanict.com
+
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
