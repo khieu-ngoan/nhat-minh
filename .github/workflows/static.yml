@@ -30,7 +30,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
+        node-version: [14.19.3]
 
     steps:
       - name: Checkout
