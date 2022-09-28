@@ -7,7 +7,7 @@ import { photoPropType } from './Photo';
 // import { computeColumnLayout } from './layouts/columns';
 // import { computeRowLayout } from './layouts/justified';
 // import { findIdealNodeSearch } from './utils/findIdealNodeSearch';
-import LazyLoad from 'react-lazyload'
+// import LazyLoad from 'react-lazyload'
 import moment from 'moment';
 import PhotoLoading from './PhotoLoading';
 import DateLabel from './DateLabel';
@@ -31,7 +31,7 @@ const Gallery = React.memo(function Gallery({
 }) {
   const [containerWidth, setContainerWidth] = useState(0);
   
-  const [listItems, setListItems] = useState([]);
+  // const [listItems, setListItems] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [page, setPage] = useState(1);
   

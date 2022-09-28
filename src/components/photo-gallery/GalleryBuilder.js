@@ -122,11 +122,12 @@ export class GalleryBuilder{
     }
 
     getStyle(){
-        const width = containerWidth - 1;
+        // const width = containerWidth - 1;
         const { containerWidth } = this;
-        const { photos, margin, direction } = this;
-        let { limitNodeSearch, targetRowHeight, columns } = this;
-        let thumbs = [];
+        const { direction } = this;
+        let { columns } = this;
+        // let {limitNodeSearch, targetRowHeight} = this;
+        // let thumbs = [];
         let style = {};
 
         if (this.direction === 'row') {
