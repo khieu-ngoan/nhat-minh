@@ -23,6 +23,7 @@ def main():
         createThumbs(22)
         return
     elif args.action == 'to-sql':
+
         syncToMySql()
         # cdnMigrate()
     elif args.action == 'firebase-clean':
