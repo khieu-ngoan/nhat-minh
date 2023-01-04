@@ -13,6 +13,7 @@ build
 NhatMinh
 public/convert
 nhatminh-images-adb45fdea658.json
+mp3-kid
 
 # misc
 .DS_Store
@@ -24,3 +25,5 @@ nhatminh-images-adb45fdea658.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+

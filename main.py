@@ -5,7 +5,7 @@ import PIL
 from PIL import Image
 from py.json import directory2Json, createJson
 from py.firebase import syncToFirebaseRealtime, cleanFirebase, cdnMigrate, syncToMySql
-from py.tool import createThumbs
+from py.tool import createThumbs, convertYoutube2Mp3
 from py.file import underMigrate
 
 
@@ -34,6 +34,8 @@ def main():
         syncToMySql()
         createThumbs(22)
         createJson(22)
+    elif args.action=='youtube':
+        convertYoutube2Mp3()
     else :
         # underMigrate(19)
         print("no action")
