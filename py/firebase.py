@@ -112,7 +112,7 @@ def syncToMySql():
                 print(f"add new to DB [{dirBasename}/{file}] ====> [src={fileSrc}]")
                 response = requests.post(API_CREATE, data=imgFile)
                 if response.status_code!=201 :
-                    print(response.status_code, imgFile, response)
+                    print("got error ", response.status_code, imgFile, response.text)
                     exit()
 
 def cleanFirebase(dirName=''):
